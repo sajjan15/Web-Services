@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - Green Life Clinic</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column; 
+            height: 100vh;
+        }
+
+        header {
+            background-color: #000;
+            color: white;
+            padding: 25px 25px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        header nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header nav a.active {
+            background-color: #218838;
+            color: white;
+            font-weight: bold;
+            margin-right: 20px; 
+        }
+
+        header nav a:hover {
+            background-color: #1e7e34;
+        }
+
+        main {
+            padding: 120px 20px 20px; 
+            flex-grow: 1; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dashboard {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .dashboard h2 {
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn.logout {
+            background-color: #e74c3c;
+        }
+
+        .btn.logout:hover {
+            background-color: #c0392b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #000;
+            color: white;
+            margin-top: 20px;
+        }
+
+        footer nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Green Life Clinic</h1>
+        <nav>
+            <a href="PatientDashboard.html" class="active">Home</a>
+            <a href="AppointmentForm.html">Booking</a>
+            <a href="Reschedule.html">Reschedule</a>
+            <a href="DoctorSearchSpecsForm.html">Specialization</a>
+            <a href="DoctorSearchForm.html">Doctor</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard">
+            <h2>Welcome to Your Dashboard</h2>
+
+            <a href="AppointmentForm.html" class="btn">Book an Appointment</a>
+            <a href="Reschedule.html" class="btn">Reschedule Appointment</a>
+            <a href="DoctorSearchForm.html" class="btn">Search Doctor</a>
+            <a href="DoctorSearchSpecsForm.html" class="btn">Search Doctor by Specialization</a>
+            <a href="logoutServlet" class="btn logout">Logout</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Green Life Clinic. All Rights Reserved.</p>
+        <nav>
+            <a href="privacy.html">Privacy Policy</a> |
+            <a href="terms.html">Terms of Use</a>
+        </nav>
+    </footer>
+</body>
+</html>

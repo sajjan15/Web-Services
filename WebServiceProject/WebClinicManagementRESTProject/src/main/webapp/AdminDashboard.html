@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Green Life Clinic</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column; 
+            height: 100vh; 
+        }
+
+        header {
+            background-color: #000;
+            color: white;
+            padding: 25px 25px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header nav a.active {
+            background-color: #218838;
+            color: white;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 120px 20px 20px; 
+            flex-grow: 1; 
+        }
+
+        .table-container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+        }
+
+        h2 {
+            color: #28a745;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-select {
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-select:hover {
+            background-color: #c0392b;
+        }
+         footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #000;
+            color: white;
+            margin-top: 20px;
+        }
+
+        footer nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Green Life Clinic</h1>
+        <nav>
+            <a href="AdminDashboard.html" class="active">Home</a>
+            <a href="AddPatient.html">Add Patient</a>
+            <a href="DeletePatient.html">Delete Patient</a>
+            <a href="AddDoctor.html">Add Doctor</a>
+            <a href="DeleteDoctor.html">Delete Doctor</a>
+            <a href="DoctorDashboard.html">Doctor Dashboard</a>
+            <a href="PatientDashboard.html">Patient Dashboard</a>
+        </nav>
+    </header>
+
+   <main>
+    <div class="dashboard">
+        <h2>Welcome to the Admin Dashboard</h2>
+        <h3>Doctors</h3>
+        <div id="doctorTable">
+            <p>Loading doctors...</p>
+        </div>
+        <h3>Patients</h3>
+        <div id="patientTable">
+            <p>Loading patients...</p>
+        </div>
+    </div>
+</main>
+
+
+    <footer>
+        <p>&copy; 2024 Green Life Clinic. All Rights Reserved.</p>
+        <nav>
+            <a href="privacy.html">Privacy Policy</a> |
+            <a href="terms.html">Terms of Use</a>
+        </nav>
+    </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const doctorTableContainer = document.getElementById("doctorTable");
+        const patientTableContainer = document.getElementById("patientTable");
+
+        const doctorApiUrl = "http://localhost:8080/WebClinicManagementRESTProject/rest/WebDoctor/doctors"; 
+        const patientApiUrl = "http://localhost:8080/WebClinicManagementRESTProject/rest/WebPatient/patients"; 
+
+        fetch(doctorApiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error fetching doctors: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(html => {
+                doctorTableContainer.innerHTML = html;
+            })
+            .catch(error => {
+                doctorTableContainer.innerHTML = `<p>Error loading doctors: ${error.message}</p>`;
+            });
+
+        fetch(patientApiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error fetching patients: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(html => {
+                patientTableContainer.innerHTML = html;
+            })
+            .catch(error => {
+                patientTableContainer.innerHTML = `<p>Error loading patients: ${error.message}</p>`;
+            });
+    });
+
+    </script>
+</body>
+</html>

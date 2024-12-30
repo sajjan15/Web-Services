@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Doctor - Green Life Clinic</title>
+    <style>
+        /* Reuse the same styling from the previous form */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2; 
+            display: flex;
+            flex-direction: column; 
+            height: 100vh; 
+        }
+
+        header {
+            background-color: #000;
+            color: white;
+            padding: 25px 25px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        header nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header nav a.active {
+            background-color: #218838;
+            color: white;
+            font-weight: bold;
+            margin-right: 10px; 
+        }
+
+        header nav a:hover {
+            background-color: #1e7e34;
+        }
+
+        main {
+            padding: 120px 20px 20px;  
+            flex-grow: 1;  
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            margin: 100px auto; 
+        }
+
+        .info h2 {
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn.logout {
+            background-color: #e74c3c;
+        }
+
+        .btn.logout:hover {
+            background-color: #c0392b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #000;
+            color: white;
+            margin-top: 20px;
+        }
+
+        footer nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer nav a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            background: rgb(178, 178, 178);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #dcdde1;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        input[type="reset"] {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="reset"]:hover {
+            background-color: #c0392b;
+        }
+
+        /* Success message styling */
+        .success-message {
+            display: none;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Green Life Clinic</h1>
+        <nav>
+            <a href="AdminDashboard.html" >Home</a>
+            <a href="AddPatient.html">Add Patient</a>
+            <a href="AddDoctor.html">Add Doctor</a>
+            <a href="DeleteDoctor.html" class="active">Delete Doctor</a>
+            <a href="DoctorDashboard.html">Doctor Dashboard</a>
+            <a href="PatientDashboard.html">Patient Dashboard</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="info">
+            <form id="deleteDoctorForm">
+                <h2>Delete Doctor</h2>
+
+                <label for="doctorId">Doctor ID:</label>
+                <input type="text" id="doctorId" name="doctorId" required />
+
+                <input type="submit" value="Delete Doctor" />
+                <input type="reset" value="Cancel" />
+            </form>
+
+            <!-- Success message div -->
+            <div id="successMessage" class="success-message">
+                Doctor has been successfully deleted!
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Green Life Clinic. All Rights Reserved.</p>
+        <nav>
+            <a href="privacy.html">Privacy Policy</a> |
+            <a href="terms.html">Terms of Use</a>
+        </nav>
+    </footer>
+
+    <script>
+        document.getElementById('deleteDoctorForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); 
+
+            const doctorId = document.getElementById('doctorId').value;
+
+            try {
+                const url = `../WebClinicManagementRESTProject/rest/WebDoctor/deleteDoctor?doctorId=${encodeURIComponent(doctorId)}`;
+
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
+                    const responseText = await response.text();
+                    // Show the success message
+                    const successMessage = document.getElementById('successMessage');
+                    successMessage.style.display = 'block'; // Show the message
+                } else {
+                    alert('Failed to delete the doctor.');
+                }
+            } catch (error) {
+                console.error('Request error:', error);
+                alert('An error occurred while deleting the doctor.');
+            }
+        });
+    </script>
+</body>
+</html>

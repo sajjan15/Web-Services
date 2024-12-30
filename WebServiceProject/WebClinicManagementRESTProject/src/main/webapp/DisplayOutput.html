@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Update Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1, h3 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .details, .records {
+            margin: 20px auto;
+            max-width: 90%;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Appointment Re-Scheduled Successfully</h1>
+
+    <div class="details">
+        <h3>Details Updated! </h3>
+        <p id="updatedDetails"></p>
+    </div>
+
+    <div class="records">
+        <h3>Patient Record Collection</h3>
+        <table id="patientTable">
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Patient Name</th>
+                    <th>Age</th>
+                    <th>Condition</th>
+                    <th>Assigned Doctor</th>
+                    <th>Appointment Date</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <h3 id="totalPatients"></h3>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const rawHtml = params.get('data');
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(rawHtml, 'text/html');
+
+        const updateMessage = doc.querySelector('h3').textContent;
+        const patientRows = doc.querySelectorAll('table tr');
+        const totalPatients = doc.querySelector('h3:nth-of-type(2)').textContent;
+
+        document.getElementById('updatedDetails').textContent = updateMessage;
+
+        const tableBody = document.querySelector('#patientTable tbody');
+        patientRows.forEach((row, index) => {
+            if (index === 0) return;
+
+            const cells = row.querySelectorAll('td');
+            const tableRow = document.createElement('tr');
+            cells.forEach(cell => {
+                const tableCell = document.createElement('td');
+                tableCell.textContent = cell.textContent;
+                tableRow.appendChild(tableCell);
+            });
+            tableBody.appendChild(tableRow);
+        });
+
+        document.getElementById('totalPatients').textContent = totalPatients;
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription - Green Life Clinic</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #000;
+            color: white;
+            padding: 25px 25px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        header nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header nav a.active {
+            background-color: #218838;
+            color: white;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            background-color: #1e7e34;
+        }
+
+        main {
+            padding: 120px 20px 20px;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            margin: 100px auto;
+        }
+
+        .info h2 {
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            background: rgb(178, 178, 178);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #dcdde1;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 48%;
+            margin-right: 4%;
+            padding: 10px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        input[type="reset"] {
+            background-color: #e74c3c;
+        }
+
+        input[type="reset"]:hover {
+            background-color: #c0392b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #000;
+            color: white;
+            margin-top: 20px;
+        }
+
+        footer nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Green Life Clinic</h1>
+        <nav>
+            <a href="DoctorDashboard.html" >Home</a>
+            <a href="UpcomingAppointments.html" >Upcoming Appointments</a>
+            <a href="PatientSearchForm.html" >Patient</a>
+            <a href="PrescriptionForm.html" class="active">Prescriptions</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="info">
+            <h2>Create a Prescription</h2>
+
+            <div id="patient-doctor-info">
+            </div>
+
+            <form id="prescription-form" method="post">
+                <input type="hidden" id="doctorId" name="doctorId" />
+                <input type="hidden" id="patientId" name="patientId" />
+
+                <label for="prescription">Prescription:</label>
+                <textarea id="prescription" name="prescription" rows="4" required></textarea>
+
+                <div style="display: flex; justify-content: space-between;">
+                    <input type="submit" value="Submit Prescription" />
+                    <input type="reset" value="Cancel" />
+                </div>
+            </form>
+
+            <div id="submitted-data" style="display: none;">
+                <h3>Submitted Prescription Details:</h3>
+                <p><strong>Prescription:</strong> <span id="submitted-prescription"></span></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Green Life Clinic. All Rights Reserved.</p>
+        <nav>
+            <a href="privacy.html">Privacy Policy</a> |
+            <a href="terms.html">Terms of Use</a>
+        </nav>
+    </footer>
+
+    <script>
+        const doctors = {
+            "NEUR_002": { name: "Dr. Patricia White" },
+            "NEUR_001": { name: "Dr. Robert Miller" },
+            "CARD_002": { name: "Dr. Emily Brown" },
+            "CARD_001": { name: "Dr. John Smith" },
+            "PED_002": { name: "Dr. Lisa Anderson" },
+            "DERM_001": { name: "Dr. Sarah Jones" },
+            "PED_001": { name: "Dr. Mike Johnson" },
+            "DERM_002": { name: "Dr. David Wilson" },
+            "ORTH_001": { name: "Dr. Thomas Clark" },
+            "ENT_001": { name: "Dr. William Martin" },
+            "RAD_001": { name: "Dr. Elizabeth Harris" },
+            "RAD_002": { name: "Dr. George Adams" },
+            "NEPH_001": { name: "Dr. James Edwards" },
+            "NEPH_002": { name: "Dr. Alexis Carter" },
+            "PSY_001": { name: "Dr. Hannah Baker" },
+            "PSY_002": { name: "Dr. Jason Taylor" },
+            "ORTH_002": { name: "Dr. Michael King" },
+            "ENT_002": { name: "Dr. Charlotte Moore" },
+            "GAST_001": { name: "Dr. Matthew Turner" },
+            "GAST_002": { name: "Dr. Isabella Ross" }
+        };
+
+        const patients = {
+            "PAT_001": { name: "Jane Doe" },
+            "PAT_002": { name: "John Smith" },
+            "PAT_003": { name: "Mary Johnson" },
+            "PAT_004": { name: "David Brown" },
+            "PAT_005": { name: "Michael Wilson" },
+            "PAT_006": { name: "Emma Taylor" },
+            "PAT_007": { name: "Robert Anderson" },
+            "PAT_008": { name: "Linda Martin" },
+            "PAT_009": { name: "James White" },
+            "PAT_010": { name: "Patricia Clark" },
+            "PAT_011": { name: "Thomas Lee" },
+            "PAT_012": { name: "Jennifer Moore" },
+            "PAT_013": { name: "William Jackson" },
+            "PAT_014": { name: "Elizabeth Harris" },
+            "PAT_015": { name: "Richard King" },
+            "PAT_016": { name: "Olivia Adams" },
+            "PAT_017": { name: "Ethan Scott" },
+            "PAT_018": { name: "Sophia Green" },
+            "PAT_019": { name: "Noah Hall" },
+            "PAT_020": { name: "Chloe Wright" },
+            "PAT_021": { name: "Mason Baker" },
+            "PAT_022": { name: "Isabella Hill" },
+            "PAT_023": { name: "Alexander Young" },
+            "PAT_024": { name: "Emily Reed" },
+            "PAT_025": { name: "Daniel Gray" },
+            "PAT_026": { name: "Abigail Torres" },
+            "PAT_027": { name: "Matthew Bennett" },
+            "PAT_028": { name: "Amelia Bryant" },
+            "PAT_029": { name: "Henry Perry" },
+            "PAT_030": { name: "Lucas Patterson" }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const doctorId = urlParams.get('doctorId');
+        const patientId = urlParams.get('patientId');
+
+        // Set the doctorId and patientId as hidden form fields
+        document.getElementById('doctorId').value = doctorId;
+        document.getElementById('patientId').value = patientId;
+
+        // You can still fetch doctor and patient names (optional)
+        const doctorName = doctors[doctorId] ? doctors[doctorId].name : "Unknown Doctor";
+        const patientName = patients[patientId] ? patients[patientId].name : "Unknown Patient";
+
+        // Display the patient and doctor info (if needed)
+        document.getElementById('patient-doctor-info').innerHTML = `
+            <p><strong>Doctor:</strong> ${doctorName}</p>
+            <p><strong>Patient:</strong> ${patientName}</p>
+        `;
+
+        document.getElementById('prescription-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the prescription value
+            const prescription = document.getElementById('prescription').value;
+
+            // Display only the prescription details
+            document.getElementById('submitted-data').style.display = 'block';
+            document.getElementById('submitted-prescription').innerText = prescription;
+
+            // Hide the prescription form after submission
+            document.getElementById('prescription-form').style.display = 'none';
+        });
+
+    </script>
+</body>
+</html>
